@@ -9,24 +9,21 @@ const port = process.env.PORT;
 const sqlPassword = process.env.SQLPASSWORD;
 const url = process.env.MONGODB_URI;
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: "3306",
-  user: "root",
-  password: sqlPassword,
-  database: "movie",
-});
+app.use(express.json());
 
-connection.connect((err) => {
-  try {
-    if (err) throw err;
+import usersRoutes from "./API/users/usersRoutes";
+app.use("/api/users", usersRoutes);
 
-    console.info("🔥 MySQL is connected 🛢 ");
-  } catch (error) {
-    console.error(error);
-  }
-});
+app.use("/check", (req, res) => {
+    try {
+        console.log("check")
+        res.send({ok: "hello"})
+    } catch (error) {
+        res.status(500).send({error: error})
+    }
+})
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
+
