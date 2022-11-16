@@ -48,8 +48,11 @@ export async function login(req: express.Request, res:express.Response) {
 
 export const getUserByCookie = async (req, res) => {
     try {
-      const { userId } = req.cookies
+      console.log(req.cookies)
+      const { userId } = req.cookies;
+      console.log(userId)
       if(!userId) throw new Error("no userId found")
+      if(userId === undefined) throw new Error("no user")
 
       const query = `SELECT * from users WHERE user_id='${userId}' LIMIT 1`
         db.query(query, (err, results, fields) => {

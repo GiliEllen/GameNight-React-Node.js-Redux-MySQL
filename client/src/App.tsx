@@ -12,6 +12,8 @@ import HomePage from './features/homePage/HomePage';
 
 function App() {
 
+  const loggedInUser = useAppSelector(userSelector)
+
   return (
       <BrowserRouter>
         <Routes>
