@@ -11,6 +11,8 @@ export async function register(req: express.Request, res: express.Response) {
         db.query(query, (err, results, fields) => {
             try {
                 if (err) throw err
+                const cookie = results[0].user_id;
+                res.cookie("userId", cookie)
                 res.send({ ok: true, message: results });
               } catch (error) {
                 console.log(err);
@@ -18,6 +20,27 @@ export async function register(req: express.Request, res: express.Response) {
               }
         })
 
+    } catch (error) {
+        res.status(500).send({notOK:error})
+    }
+}
+
+export async function login(req: express.Request, res:express.Response) {
+    try {
+        const {email, password} = req.body;
+    if(!email || !password) throw new Error("no data from client login in login")
+        const query = `SELECT * from users WHERE email='${email}' AND password ='${password}' LIMIT 1`
+        db.query(query, (err, results, fields) => {
+            try {
+                if (err) throw err
+                const cookie = results[0].user_id;
+                res.cookie("userId", cookie)
+                res.send({ ok: true, message: results });
+              } catch (error) {
+                console.log(err);
+                res.status(500).send({ ok: false, error: err });
+              }
+        })
     } catch (error) {
         res.status(500).send({notOK:error})
     }

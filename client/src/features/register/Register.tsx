@@ -53,7 +53,7 @@ export const Register = () => {
       return stateObj;
     });
   }
-  const handleLogin = async (ev: any) => {
+  const handleRegister = async (ev: any) => {
     try {
       ev.preventDefault();
       console.log("trying to register");
@@ -89,7 +89,7 @@ export const Register = () => {
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <input type="text" name="first_name" placeholder="Enter Your name" />
         <input
           type="text"
