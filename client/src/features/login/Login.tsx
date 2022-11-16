@@ -13,11 +13,11 @@ export const Login = () => {
         password,
       });
       console.log(data);
-      const { message } = data;
+      const { userArray } = data;
 
-      if (message.length === 0) {
+      if (userArray.length === 0) {
         console.log("no user found");
-      } else if(message.length > 0) {
+      } else if(userArray.length > 0) {
         console.log("user found!")
       }
     } catch (error) {

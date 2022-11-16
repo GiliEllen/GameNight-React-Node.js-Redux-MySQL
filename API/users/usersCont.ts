@@ -35,7 +35,7 @@ export async function login(req: express.Request, res:express.Response) {
                 if (err) throw err
                 const cookie = results[0].user_id;
                 res.cookie("userId", cookie)
-                res.send({ ok: true, message: results });
+                res.send({ ok: true, userArray: results });
               } catch (error) {
                 console.log(err);
                 res.status(500).send({ ok: false, error: err });
@@ -45,3 +45,23 @@ export async function login(req: express.Request, res:express.Response) {
         res.status(500).send({notOK:error})
     }
 }
+
+export const getUserByCookie = async (req, res) => {
+    try {
+      const { userId } = req.cookies
+      if(!userId) throw new Error("no userId found")
+
+      const query = `SELECT * from users WHERE user_id='${userId}' LIMIT 1`
+        db.query(query, (err, results, fields) => {
+            try {
+                if (err) throw err
+                res.send({ user: results[0] });
+              } catch (error) {
+                console.log(err);
+                res.status(500).send({ ok: false, error: err });
+              }
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  }

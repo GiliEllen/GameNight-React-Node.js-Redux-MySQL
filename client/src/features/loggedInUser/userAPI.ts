@@ -7,13 +7,13 @@ export const login = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await axios.get("/api/users/get-user");
-      const { userCookie } = data;
+      const { user } = data;
 
-      if (userCookie) {
+      if (user) {
         // navigate("/find-mentor");
-        const { error } = UserJoi.validate(userCookie);
+        const { error } = UserJoi.validate(user);
         if (error) throw error;
-        return userCookie;
+        return user;
       }
     } catch (error:any) {
         console.error(error);
