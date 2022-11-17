@@ -2,6 +2,8 @@ import express from "express";
 import http from "http";
 import mysql from "mysql";
 
+const cookieParser = require('cookie-parser')
+
 require("dotenv").config();
 
 const app = express();
@@ -10,6 +12,7 @@ const sqlPassword = process.env.SQLPASSWORD;
 const url = process.env.MONGODB_URI;
 
 app.use(express.json());
+app.use(cookieParser());
 
 import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);

@@ -8,6 +8,7 @@ import { userSelector } from "./features/loggedInUser/loggedInUser";
 import { useEffect } from "react";
 import { login } from "./features/loggedInUser/userAPI";
 import HomePage from './features/homePage/HomePage';
+import Dashboard from './components/dashboard/Dashboard';
 
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/my-game-nights" element={<HomePage />} />
+          <Route path="/my-games" element={<HomePage />} />
+          <Route path="/find-games" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
   );

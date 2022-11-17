@@ -1,6 +1,8 @@
 import express from "express";
 import db from "../../DB/database";
 
+const cookieParser = require('cookie-parser')
+
 export async function register(req: express.Request, res: express.Response) {
     try {
         console.log("controller")
@@ -48,9 +50,7 @@ export async function login(req: express.Request, res:express.Response) {
 
 export const getUserByCookie = async (req, res) => {
     try {
-      console.log(req.cookies)
       const { userId } = req.cookies;
-      console.log(userId)
       if(!userId) throw new Error("no userId found")
       if(userId === undefined) throw new Error("no user")
 
