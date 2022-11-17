@@ -15,6 +15,7 @@ function Header() {
       <div className="user_settings">
            <p>notifications</p>
            <p>settings</p>
+           <p>LOG OUT</p>
       </div>
     </div>
   );

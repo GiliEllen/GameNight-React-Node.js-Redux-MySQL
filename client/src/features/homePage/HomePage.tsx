@@ -15,10 +15,10 @@ function HomePage() {
     dispatch(login());
   }, []);
 
+
   return (
     <div>
       <Header />
-
       <NavBar />
       <Outlet />
     </div>

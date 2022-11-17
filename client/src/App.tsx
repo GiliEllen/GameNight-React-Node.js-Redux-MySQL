@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { login } from "./features/loggedInUser/userAPI";
 import HomePage from './features/homePage/HomePage';
 import Dashboard from './components/dashboard/Dashboard';
+import MyGameNights from './components/myGameNight/MyGameNights';
+import MyGames from './components/myGames/MyGames';
 
 
 function App() {
@@ -23,8 +25,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/my-game-nights" element={<HomePage />} />
-          <Route path="/my-games" element={<HomePage />} />
+          <Route path="/my-game-nights" element={<MyGameNights />} />
+          <Route path="/my-games" element={<MyGames />} />
           <Route path="/find-games" element={<HomePage />} />
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const handleLogin = async (ev: any) => {
     try {
       ev.preventDefault();
@@ -19,6 +21,8 @@ export const Login = () => {
         console.log("no user found");
       } else if(userArray.length > 0) {
         console.log("user found!")
+        navigate("/home")
+        
       }
     } catch (error) {
       console.log(error);

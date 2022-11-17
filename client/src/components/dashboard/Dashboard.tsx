@@ -1,13 +1,15 @@
 import React from 'react'
 import Header from './../header/Header';
 import NavBar from './../navbar/NavBar';
+import ReactCalender from './../calender/ReactCalender';
 
 function Dashboard() {
   return (
     <div>
         <Header/>
         <NavBar/>
-        <div>your next game is...</div>
+        <ReactCalender/>
+        <div>Recent game</div>
         <div>calnder for game nights</div>
         <div>top games</div>
     </div>
