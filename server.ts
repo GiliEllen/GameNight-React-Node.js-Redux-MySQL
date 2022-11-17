@@ -17,6 +17,9 @@ app.use(cookieParser());
 import usersRoutes from "./API/users/usersRoutes";
 app.use("/api/users", usersRoutes);
 
+import gamesRoutes from "./API/games/gamesRoutes";
+app.use("/api/games", gamesRoutes);
+
 app.use("/check", (req, res) => {
     try {
         console.log("check")
