@@ -5,10 +5,16 @@ import Header from "./../header/Header";
 import NavBar from "./../navbar/NavBar";
 import axios from "axios";
 import Game from "./game/Game";
+import AddNewGame from './addNewGame/AddNewGame';
+
+export interface GameModel {
+  game_name: string;
+  game_img: string;
+}
 
 function MyGames() {
   const loggedInUser = useAppSelector(userSelector);
-  const [games, setGames] = useState<any[]>([]);
+  const [games, setGames] = useState<GameModel[]>([]);
 
   useEffect(() => {
     getUserGames();
@@ -20,7 +26,7 @@ function MyGames() {
         loggedInUser,
       });
       if (!data) throw new Error("no data from serever");
-      const {results} = data
+      const { results } = data;
       setGames(results);
     } catch (error) {
       console.log(error);
@@ -33,11 +39,16 @@ function MyGames() {
       <div>
         <h3>my game list</h3>
         <div>
-        {games.map(game => { return (<Game name={game.game_name} img={game.game_img} />)})}
+          {games.map((game) => {
+            return <Game name={game.game_name} img={game.game_img} />;
+          })}
         </div>
       </div>
       <div>my top games</div>
-      <div>add new game to list</div>
+      <div>
+        <h1>Add New Game</h1>
+        <AddNewGame />
+      </div>
     </div>
   );
 }
