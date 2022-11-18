@@ -13,8 +13,21 @@ const AddNewGame = () => {
 
   const [gameExist, setGameExist] = useState(false);
   const [possibleGame, setPossibleGame] = useState<GameModel[]>([]);
+  const [allowAdd, setAllowAdd] = useState<Boolean>(false)
 
-  async function handleAddGame() {}
+  async function handleAddGame(ev:any) {
+    try {
+        ev.preventDefault();
+        const gameName = ev.target.gameName.value;
+        const gameImg = ev.target.gameImg.value;
+        if(!gameName || !gameImg) throw new Error("no data from client on handleAddGame");
+
+        const {data} = await axios.post("/api/games/Add-New-Game", {gameName, gameImg});
+        console.log(data)
+    } catch (error) {
+        console.error(error)
+    }
+  }
 
   async function handleLookForGameName(ev: any) {
     try {
@@ -23,6 +36,7 @@ const AddNewGame = () => {
       if(!gameName) {
         setGameExist(false);
         setPossibleGame([]);
+        return;
       }
       const { data } = await axios.post("/api/games/find-game-by-name", {
         gameName,
@@ -33,11 +47,12 @@ const AddNewGame = () => {
         console.log("no game with this name is found");
         setGameExist(false);
         setPossibleGame([]);
+        setAllowAdd(true)
       } else if (results.length > 0) {
         console.log("game avilable");
         setGameExist(true);
         setPossibleGame(results);
-        console.log(results)
+        setAllowAdd(false)
       }
     } catch (error) {
       console.error(error);
@@ -57,7 +72,8 @@ const AddNewGame = () => {
           name="gameImg"
           placeholder="Enter Game Image Link Here"
         />
-        <button type="submit">ADD GAME</button>
+        {allowAdd && <button type="submit">ADD GAME</button>}
+        {!allowAdd && <button disabled type="submit">ADD GAME</button>}
       </form>
       {gameExist && <div>Did you mean...</div>}
       {gameExist &&

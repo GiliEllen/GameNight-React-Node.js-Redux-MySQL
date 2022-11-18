@@ -39,8 +39,8 @@ function MyGames() {
       <div>
         <h3>my game list</h3>
         <div>
-          {games.map((game) => {
-            return <Game name={game.game_name} img={game.game_img} />;
+          {games.map((game, idx) => {
+            return <Game key={idx} name={game.game_name} img={game.game_img} />;
           })}
         </div>
       </div>
