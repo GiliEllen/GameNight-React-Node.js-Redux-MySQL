@@ -78,7 +78,7 @@ const AddNewGame = () => {
       {gameExist && <div>Did you mean...</div>}
       {gameExist &&
         possibleGame.map((game, idx) => {
-          return <Game key={idx} name={game.game_name} img={game.game_img} />;
+          return <Game key={idx} name={game.game_name} img={game.game_img} addable={true}/>;
         })}
     </div>
   );

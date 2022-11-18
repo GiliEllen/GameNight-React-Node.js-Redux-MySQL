@@ -40,7 +40,7 @@ function MyGames() {
         <h3>my game list</h3>
         <div>
           {games.map((game, idx) => {
-            return <Game key={idx} name={game.game_name} img={game.game_img} />;
+            return <Game key={idx} name={game.game_name} img={game.game_img} addable={false}/>;
           })}
         </div>
       </div>

@@ -77,3 +77,26 @@ export async function addGame(req: express.Request, res: express.Response) {
     res.status(500).send({ error: error });
   }
 }
+
+export async function addGameToUser(req: express.Request, res: express.Response) {
+  try {
+    const {userId, name} = req.body;
+    if(!userId || ! name) throw new Error("no loggedInUser or name from client on addGameToUser");
+    const query = `INSERT INTO gamenight.users_games (user_owner_id ,game_id) 
+    SELECT "${userId}", game_id FROM gamenight.games
+    WHERE game_name = '${name}';`;
+
+    db.query(query, (err, results, fields) => {
+      try {
+        if (err) throw err;
+        res.send({results})
+      } catch (error) {
+        console.log(err);
+        res.status(500).send({ ok: false, error: err });
+      }
+    });
+    
+  } catch (error) {
+    res.status(500).send({ error: error });
+  }
+}
