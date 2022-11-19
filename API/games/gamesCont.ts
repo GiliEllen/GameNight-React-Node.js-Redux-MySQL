@@ -12,7 +12,7 @@ export async function findGameByUser(
 
     const userId = loggedInUser.user_id;
 
-    const query = `SELECT g.game_name, g.game_img 
+    const query = `SELECT g.game_name, g.game_img, g.game_id 
     FROM games as g 
     JOIN users_games as ug ON g.game_id = ug.game_id 
     JOIN users as u ON u.user_id = ug.user_owner_id
@@ -96,6 +96,38 @@ export async function addGameToUser(req: express.Request, res: express.Response)
       }
     });
     
+  } catch (error) {
+    res.status(500).send({ error: error });
+  }
+}
+
+export async function getAllGames(req:express.Request, res:express.Response) {
+  try {
+    const {userId} = req.body;
+    if(!userId) throw new Error("no loggedInUser from client on addGameToUser");
+    const query = `SELECT * 
+    FROM gamenight.games as g
+    LEFT JOIN gamenight.users_games as ug
+    ON g.game_id = ug.game_id`;
+
+    db.query(query, (err, results, fields) => {
+      try {
+        if (err) throw err;
+        const gamesArray = [];
+        results.map((result) => {
+          if(result.user_owner_id === userId) {
+            gamesArray.push({game_name:result.game_name, game_img: result.game_img, game_id: result.game_id, gameAddble: false})
+          } else {
+            gamesArray.push({game_name:result.game_name, game_img: result.game_img, game_id: result.game_id, gameAddble: true})
+          }
+          
+        })
+        res.send({gamesArray})
+      } catch (error) {
+        console.log(err);
+        res.status(500).send({ ok: false, error: err });
+      }
+    });
   } catch (error) {
     res.status(500).send({ error: error });
   }

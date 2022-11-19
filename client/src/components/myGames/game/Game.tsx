@@ -6,7 +6,7 @@ import { userSelector } from '../../../features/loggedInUser/loggedInUser'
 interface GameProps {
     name: string,
     img: string,
-    addable: boolean
+    addable: boolean | undefined
 }
 
 const Game:FC<GameProps> = ({name, img, addable}) => {

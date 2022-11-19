@@ -9,7 +9,9 @@ import AddNewGame from './addNewGame/AddNewGame';
 
 export interface GameModel {
   game_name: string;
-  game_img: string;
+  game_img: string,
+  game_id:number,
+  gameAddble?: boolean
 }
 
 function MyGames() {

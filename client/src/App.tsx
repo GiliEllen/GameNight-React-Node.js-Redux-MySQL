@@ -11,6 +11,7 @@ import HomePage from './features/homePage/HomePage';
 import Dashboard from './components/dashboard/Dashboard';
 import MyGameNights from './components/myGameNight/MyGameNights';
 import MyGames from './components/myGames/MyGames';
+import FindGames from './components/findGames/FindGames';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/my-game-nights" element={<MyGameNights />} />
           <Route path="/my-games" element={<MyGames />} />
-          <Route path="/find-games" element={<HomePage />} />
+          <Route path="/find-games" element={<FindGames />} />
         </Routes>
       </BrowserRouter>
   );
