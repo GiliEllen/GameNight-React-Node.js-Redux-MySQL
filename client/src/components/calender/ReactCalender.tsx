@@ -1,12 +1,15 @@
 import React from "react";
 //@ts-ignore
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useState, FC } from "react";
 import 'react-calendar/dist/Calendar.css';
 
-function ReactCalender() {
-  const [date, setDate] = useState(new Date());
+interface ReactCalendarProps {
+  setDate: Function,
+  date: Date
+}
 
+const ReactCalender:FC<ReactCalendarProps> = ({setDate, date}) => {
   const onChange = (date:Date) => {
     setDate(date);
   };

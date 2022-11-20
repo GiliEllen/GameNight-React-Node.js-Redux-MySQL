@@ -14,7 +14,7 @@ export default class DemoApp extends React.Component {
     )
   }
 
-  handleDateClick = (arg) => { // bind with an arrow function
+  handleDateClick = (arg:any) => { // bind with an arrow function
     alert(arg.dateStr)
   }
 

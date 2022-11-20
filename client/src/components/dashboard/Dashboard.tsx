@@ -8,7 +8,6 @@ function Dashboard() {
     <div>
         <Header/>
         <NavBar/>
-        <ReactCalender/>
         <div>Recent game</div>
         <div>calnder for game nights</div>
         <div>top games</div>

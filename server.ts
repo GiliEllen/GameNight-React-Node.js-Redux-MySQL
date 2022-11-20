@@ -20,6 +20,9 @@ app.use("/api/users", usersRoutes);
 import gamesRoutes from "./API/games/gamesRoutes";
 app.use("/api/games", gamesRoutes);
 
+import gameNightsRoutes from "./API/gameNights/gameNightsRoutes";
+app.use("/api/game-nights", gameNightsRoutes);
+
 app.use("/check", (req, res) => {
     try {
         console.log("check")
