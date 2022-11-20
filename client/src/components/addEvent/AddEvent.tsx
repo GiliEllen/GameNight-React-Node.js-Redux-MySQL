@@ -12,6 +12,7 @@ export const AddEvent = () => {
   const [games, setGames] = useState<GameModel[]>([]);
   const [date, setDate] = useState(new Date());
   const dispatch = useAppDispatch();
+  const [addedevent, setAddedEvent] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(login());
@@ -91,6 +92,7 @@ export const AddEvent = () => {
           })}
         </select>
         <button type="submit">Add Event</button>
+        {addedevent && <p className="good">Event Added Successfully!</p>}
       </form>
     </div>
   );
