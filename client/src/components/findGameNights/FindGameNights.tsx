@@ -17,7 +17,8 @@ interface allEventsModel {
     game_img:string, 
     first_name: string, 
     last_name:string,
-    user_host_id: number
+    user_host_id: number,
+    game_events_id: number
 }
 
 export const FindGameNights = () => {
@@ -71,6 +72,7 @@ export const FindGameNights = () => {
               hostedBylastName={event.last_name}
               spots={event.spots_available}
               addable={addble}
+              gameEventsId={event.game_events_id}
             />
           );
         })}
