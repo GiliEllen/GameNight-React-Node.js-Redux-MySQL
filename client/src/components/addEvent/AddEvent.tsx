@@ -57,9 +57,8 @@ export const AddEvent = () => {
         userId
       });
       const {results} = data;
-      console.log(results)
 
-      if(results.affectedRows > 0) console.log("new event added")
+      if(results.affectedRows > 0) setAddedEvent(true)
     } catch (error) {
       console.error(error);
     }
