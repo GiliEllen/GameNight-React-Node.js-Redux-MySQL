@@ -12,6 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import MyGameNights from './components/myGameNight/MyGameNights';
 import MyGames from './components/myGames/MyGames';
 import FindGames from './components/findGames/FindGames';
+import { FindGameNights } from './components/findGameNights/FindGameNights';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/my-game-nights" element={<MyGameNights />} />
           <Route path="/my-games" element={<MyGames />} />
           <Route path="/find-games" element={<FindGames />} />
+          <Route path="/find-gameNights" element={<FindGameNights />} />
         </Routes>
       </BrowserRouter>
   );

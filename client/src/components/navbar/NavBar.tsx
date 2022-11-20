@@ -8,6 +8,7 @@ function NavBar() {
         <Link to="/my-game-nights">My Game Nights</Link>
         <Link to="/my-games">My Games</Link>
         <Link to="/find-games">Find Games</Link>
+        <Link to="/find-gameNights">Find Game Nights</Link>
     </div>
     </div>
   )
