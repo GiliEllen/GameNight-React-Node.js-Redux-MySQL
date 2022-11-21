@@ -113,10 +113,11 @@ export async function addUserToGameNight(
   res: express.Response
 ) {
   try {
-    const {userId, gameEventsId} = req.body;
-    if(!userId || !gameEventsId) throw new Error("no data from client on addUserToGameNight");
+    const { userId, gameEventsId } = req.body;
+    if (!userId || !gameEventsId)
+      throw new Error("no data from client on addUserToGameNight");
 
-    const query = `INSERT INTO gamenight.game_events_spots (user_atendee_id, game_event_id) VALUES (${userId}, ${gameEventsId})`
+    const query = `INSERT INTO gamenight.game_events_spots (user_atendee_id, game_event_id) VALUES (${userId}, ${gameEventsId})`;
     db.query(query, (err, results, fields) => {
       try {
         if (err) throw err;
@@ -128,6 +129,31 @@ export async function addUserToGameNight(
     });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ error: error });
+  }
+}
+
+export async function checkIfUserCanJoinGame(
+  req: express.Request,
+  res: express.Response
+) {
+  try {
+    const {gameEventId} = req.body
+    const query =
+      `SELECT * FROM gamenight.game_events_spots WHERE game_events_spots.game_event_id = '${gameEventId}'; SELECT game_events.spots_available FROM gamenight.game_events WHERE game_events_id = '${gameEventId}';`;
+  
+      db.query(query, [1,2], (err, results, fields) => {
+        try {
+          if (err) throw err;
+          console.log(results[0]); // [{1: 1}]
+          console.log(results[1]); // [{2: 2}]
+          res.send({ results });
+        } catch (error) {
+          console.log(err);
+          res.status(500).send({ ok: false, error: err });
+        }
+      });
+    } catch (error) {
     res.status(500).send({ error: error });
   }
 }
