@@ -5,20 +5,20 @@ import { userSelector } from "../../features/loggedInUser/loggedInUser";
 import Header from "../header/Header";
 import NavBar from "./../navbar/NavBar";
 import { GameNightRow } from "./gameNightRow/GameNightRow";
-import { useAppDispatch } from './../../app/hooks';
-import { login } from './../../features/loggedInUser/userAPI';
+import { useAppDispatch } from "./../../app/hooks";
+import { login } from "./../../features/loggedInUser/userAPI";
 
 interface allEventsModel {
-    date:Date,
-    spots_available: number,
-    location_city: string, 
-    location_address: string, 
-    game_name: string, 
-    game_img:string, 
-    first_name: string, 
-    last_name:string,
-    user_host_id: number,
-    game_events_id: number
+  date: Date;
+  spots_available: number;
+  location_city: string;
+  location_address: string;
+  game_name: string;
+  game_img: string;
+  first_name: string;
+  last_name: string;
+  user_host_id: number;
+  game_events_id: number;
 }
 
 export const FindGameNights = () => {
@@ -27,7 +27,7 @@ export const FindGameNights = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(login())
+    dispatch(login());
     getAllEvents();
   }, []);
 
@@ -41,6 +41,7 @@ export const FindGameNights = () => {
       console.error(error);
     }
   }
+
   return (
     <div>
       <Header />
@@ -55,15 +56,16 @@ export const FindGameNights = () => {
           <th>spots</th>
           <th>Can you join?</th>
         </tr>
-        {allEvents.map((event) => {
-            let addble;
-            if(loggedInUser?.user_id === event.user_host_id){
-                addble = false;
-            } else {
-                addble = true;
-            }
+        {allEvents.map((event, idx) => {
+          let userHost;
+          if (loggedInUser?.user_id === event.user_host_id) {
+            userHost = true;
+          } else {
+            userHost = false;
+          }
           return (
             <GameNightRow
+              key={idx}
               GameName={event.game_name}
               playingOn={event.date}
               playingIn={event.location_city}
@@ -71,8 +73,8 @@ export const FindGameNights = () => {
               hostedByname={event.first_name}
               hostedBylastName={event.last_name}
               spots={event.spots_available}
-              addable={addble}
-              gameEventsId={event.game_events_id}
+              userHost={userHost}
+              gameEventId={event.game_events_id}
             />
           );
         })}
@@ -80,4 +82,3 @@ export const FindGameNights = () => {
     </div>
   );
 };
-

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FC } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { userSelector } from "../../../features/loggedInUser/loggedInUser";
@@ -12,8 +12,8 @@ interface GameNightRowProps {
   hostedByname: string;
   hostedBylastName: string;
   spots: number;
-  addable: boolean;
-  gameEventsId: number
+  userHost: boolean;
+  gameEventId: number;
 }
 
 export const GameNightRow: FC<GameNightRowProps> = ({
@@ -24,11 +24,13 @@ export const GameNightRow: FC<GameNightRowProps> = ({
   hostedByname,
   hostedBylastName,
   spots,
-  addable,
-  gameEventsId
+  userHost,
+  gameEventId,
 }) => {
-    const loggedInUser = useAppSelector(userSelector)
-    const [addedUser, setAddedUser] = useState<boolean>()
+  const loggedInUser = useAppSelector(userSelector);
+  const [userClickedButton, setUserClickedButton] = useState<boolean>(false);
+  const [gameJoinable, setGameJoinable] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const day = new Date(playingOn).getDate();
   const month = new Date(playingOn).getMonth();
   const year = new Date(playingOn).getFullYear();
@@ -43,14 +45,51 @@ export const GameNightRow: FC<GameNightRowProps> = ({
 
   async function handleAddUserToGameEvent() {
     try {
-        const userId = loggedInUser?.user_id
-        const {data} = await axios.post("/api/game-nights/add-user-to-game-night", {userId, gameEventsId})
-        const {results} = data;
-        if(results.affectedRows > 0) setAddedUser(true)
+      const userId = loggedInUser?.user_id;
+      const { data } = await axios.post(
+        "/api/game-nights/add-user-to-game-night",
+        { userId, gameEventId }
+      );
+      const { results } = data;
+      if (results.affectedRows > 0) {
+        setDisabled(true);
+      }
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
   }
+
+  async function canUserJoinGame() {
+    try {
+      const { data } = await axios.post(
+        "/api/game-nights/check-if-user-can-join-game",
+        { gameEventId }
+      );
+      const { userJoin } = data;
+      console.log(gameEventId)
+      console.log(userJoin)
+      setGameJoinable(userJoin);
+      if(!userJoin) {
+        setDisabled(true)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function button() {
+    if(userHost === true) {
+      setDisabled(true)
+    } else if (gameJoinable === false) {
+      setDisabled(true)
+    }
+  }
+
+  useEffect(() => {
+    canUserJoinGame();
+    button();
+  }, []);
+
   return (
     <tr>
       <td>{GameName}</td>
@@ -61,9 +100,21 @@ export const GameNightRow: FC<GameNightRowProps> = ({
         {hostedByname} {hostedBylastName}
       </td>
       <td>{spots}</td>
-      {!addedUser && addable && <td><button onClick={handleAddUserToGameEvent}>JOIN GAME</button></td>}
-      {addedUser && addable && <td><button disabled onClick={handleAddUserToGameEvent}>JOIN GAME</button></td>}
-      {!addable && <td><button disabled>JOIN GAME</button></td>}
+
+      {/*user host*/}
+
+      {disabled && (
+        <td>
+          <button disabled onClick={handleAddUserToGameEvent}>
+            JOIN GAME
+          </button>
+        </td>
+      )}
+      {!disabled && (
+        <td>
+          <button onClick={handleAddUserToGameEvent}>JOIN GAME</button>
+        </td>
+      )}
     </tr>
   );
 };
