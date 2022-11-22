@@ -78,49 +78,51 @@ export const Register = () => {
 
   const checkConnection = async () => {
     try {
-        console.log("trying to check")
-        const {data} = await axios.get("/check")
-        if (!data) throw new Error("no data from check");
-        console.log(data)
+      console.log("trying to check");
+      const { data } = await axios.get("/check");
+      if (!data) throw new Error("no data from check");
+      console.log(data);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleRegister}>
-        <input type="text" name="first_name" placeholder="Enter Your name" />
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Enter Your last name"
-        />
-        <input type="email" name="email" placeholder="Enter Your Email" />
-        <input
-          onBlur={validateInput}
-          onChange={onInputChange}
-          value={input.password}
-          type="password"
-          name="password"
-          placeholder="Enter Your Password"
-        />
-        {error.password && <span className="err">{error.password}</span>}
-        <input
-          value={input.rePassword}
-          onChange={onInputChange}
-          onBlur={validateInput}
-          type="password"
-          name="rePassword"
-          placeholder="Repeat Your Password"
-        />
-        {error.rePassword && <span className="err">{error.rePassword}</span>}
-        <button type="submit">SIGN UP</button>
-      </form>
-
-      <button type="submit" onClick={checkConnection}>
-        Check
-      </button>
+    <div className="session">
+      <div className="session__header">
+        <h1>Welcome to Game Night!</h1>
+        <h3>Ready to play?</h3>
+      </div>
+      <div className="session__form_container">
+        <form className="form_container__form" onSubmit={handleRegister}>
+          <input type="text" name="first_name" placeholder="Enter Your name" />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Enter Your last name"
+          />
+          <input type="email" name="email" placeholder="Enter Your Email" />
+          <input
+            onBlur={validateInput}
+            onChange={onInputChange}
+            value={input.password}
+            type="password"
+            name="password"
+            placeholder="Enter Your Password"
+          />
+          {error.password && <span className="err">{error.password}</span>}
+          <input
+            value={input.rePassword}
+            onChange={onInputChange}
+            onBlur={validateInput}
+            type="password"
+            name="rePassword"
+            placeholder="Repeat Your Password"
+          />
+          {error.rePassword && <span className="err">{error.rePassword}</span>}
+          <button className="button_main" type="submit">SIGN UP</button>
+        </form>
+      </div>
     </div>
   );
 };

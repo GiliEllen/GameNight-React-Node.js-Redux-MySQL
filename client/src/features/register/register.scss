@@ -1,0 +1,43 @@
+
+.session {
+    width: 100vw;
+    height: 100vh;
+    background-color:var(--backgroundColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url(../../images/background.png);
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: 50rem;
+    
+    &__form_container {
+        padding: 12px;
+        width: 40rem;
+        height: 50vh;
+        background-color: var(--divBackgroundColor);
+        border-radius: var(--borderRadius);
+
+        form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            input {
+                height: 3rem;
+                width: 50%;
+                border: none;
+                color: var(--backgroundColor);
+                font-size: 75%;
+                line-height: 15px;
+                cursor: text;
+                border-radius: var(--borderRadius);
+                padding-left: 15px;
+                font-size: 1rem;
+            }
+        }
+    }
+}
