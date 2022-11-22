@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 export const Register = () => {
   const [input, setInput] = useState({
@@ -93,7 +94,7 @@ export const Register = () => {
         <h1>Welcome to Game Night!</h1>
         <h3>Ready to play?</h3>
       </div>
-      <div className="session__form_container">
+      <div className="session__form_container_register">
         <form className="form_container__form" onSubmit={handleRegister}>
           <input type="text" name="first_name" placeholder="Enter Your name" />
           <input
@@ -121,6 +122,7 @@ export const Register = () => {
           />
           {error.rePassword && <span className="err">{error.rePassword}</span>}
           <button className="button_main" type="submit">SIGN UP</button>
+          <p>already a memmber? <Link to="/login">click here to log in!</Link> </p>
         </form>
       </div>
     </div>

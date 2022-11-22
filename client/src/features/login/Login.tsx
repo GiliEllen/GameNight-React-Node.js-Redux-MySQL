@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -19,10 +19,9 @@ export const Login = () => {
 
       if (userArray.length === 0) {
         console.log("no user found");
-      } else if(userArray.length > 0) {
-        console.log("user found!")
-        navigate("/home")
-        
+      } else if (userArray.length > 0) {
+        console.log("user found!");
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);
@@ -30,16 +29,21 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <input type="email" name="email" placeholder="Enter Email Here" />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password Here"
-        />
-        <button type="submit">LOG IN</button>
-      </form>
+    <div className="session">
+      <h1>Welcome Back to Game Night!</h1>
+        <h3>Ready to play?</h3>
+      <div className="session__form_container_login">
+        <form onSubmit={handleLogin}>
+          <input type="email" name="email" placeholder="Enter Email Here" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password Here"
+          />
+          <button className="button_main" type="submit">LOG IN</button>
+          <p>not a member? <Link to={"/"}> Click Here To Register! </Link></p>
+        </form>
+      </div>
     </div>
   );
 };
