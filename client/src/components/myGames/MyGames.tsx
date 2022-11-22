@@ -49,7 +49,7 @@ function MyGames() {
       <div>my top games</div>
       <div>
         <h1>Add New Game</h1>
-        <AddNewGame />
+        <AddNewGame userGames={games}/>
       </div>
     </div>
   );

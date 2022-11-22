@@ -1,11 +1,15 @@
-import { ReactEventHandler, useEffect, useState } from "react";
+import { ReactEventHandler, useEffect, useState, FC } from "react";
 import axios from "axios";
 import Game from "../game/Game";
 import { GameModel } from './../MyGames';
 import { useAppDispatch } from './../../../app/hooks';
 import { login } from './../../../features/loggedInUser/userAPI';
 
-const AddNewGame = () => {
+interface AddGamesProps {
+  userGames : Array<GameModel>;
+}
+
+const AddNewGame:FC<AddGamesProps> = ({userGames}) => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(login());
