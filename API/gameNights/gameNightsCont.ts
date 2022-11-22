@@ -138,7 +138,7 @@ export async function checkIfUserCanJoinGame(
   res: express.Response
 ) {
   try {
-    const {gameEventId} = req.body
+    const {gameEventId, userId} = req.body
     const query =
       `SELECT COUNT(game_event_id) as NumberOfAtendees FROM gamenight.game_events_spots 
       WHERE game_events_spots.game_event_id = ${gameEventId}; SELECT game_events.spots_available FROM gamenight.game_events WHERE game_events_id = '${gameEventId}';`;

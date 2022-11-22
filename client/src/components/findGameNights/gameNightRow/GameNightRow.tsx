@@ -61,9 +61,10 @@ export const GameNightRow: FC<GameNightRowProps> = ({
 
   async function canUserJoinGame() {
     try {
+      const userId = loggedInUser?.user_id;
       const { data } = await axios.post(
         "/api/game-nights/check-if-user-can-join-game",
-        { gameEventId }
+        { gameEventId, userId }
       );
       const { userJoin } = data;
       console.log(gameEventId)
