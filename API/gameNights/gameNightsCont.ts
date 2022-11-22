@@ -56,20 +56,36 @@ export async function getUserEvents(
     const { userId } = req.body;
     if (!userId) throw new Error("no userId from client on getUserEvents");
 
-    const query = `SELECT * FROM gamenight.game_events as ge
+    const query = 
+    `SELECT * FROM gamenight.game_events as ge
     JOIN gamenight.games as g
-    ON ge.game_id = g.game_id AND ge.user_host_id = ${userId}`;
+    ON ge.game_id = g.game_id AND ge.user_host_id = ${userId}
+    ; 
+    SELECT * from game_events 
+    JOIN games 
+    WHERE games.game_id = game_events.game_id 
+    AND game_events.game_events_id IN (
+      SELECT game_event_id
+        FROM game_events_spots
+        WHERE user_atendee_id = '${userId}'
+    );`;
     const userEvents = [];
-    db.query(query, (err, results, fields) => {
+    db.query(query, [1,2], (err, results, fields) => {
       try {
         if (err) throw err;
-        results.forEach((result) => {
-          const dateTime = result;
+        results[0].forEach((result) => {
           userEvents.push({
             id: result.game_events_id,
             title: result.game_name,
             start: result.date,
           });
+        });
+        results[1].forEach((result) => {
+          userEvents.push({
+            id: result.game_events_id,
+            title: result.game_name,
+            start:result.date
+          })
         });
         res.send({ userEvents });
       } catch (error) {
