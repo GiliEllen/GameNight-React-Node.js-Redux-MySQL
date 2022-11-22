@@ -1,0 +1,30 @@
+
+.header {
+    background-color: var(--divBackgroundColor);
+    display: flex;
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+
+    &__right {
+        display: flex;
+        align-items: center;
+        &__logo {
+            height: 100%;
+            img {
+                height: 100%;
+            }
+        }
+    }
+
+    &__left {
+        display: flex;
+        align-items: center;
+        &__user_settings {
+           span {
+            font-size: 50px;
+           }
+        }
+    }
+    
+}
