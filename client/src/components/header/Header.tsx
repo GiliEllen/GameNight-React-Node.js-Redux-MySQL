@@ -6,8 +6,7 @@ function Header() {
   const loggedInUser = useAppSelector(userSelector);
 
   return (
-    <div className="page">
-      <div className="header">
+      <div className="header header_grid">
         <div className="header__right">
           <div className="header__right__logo">
             <img src={logo} alt="" />
@@ -25,7 +24,6 @@ function Header() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

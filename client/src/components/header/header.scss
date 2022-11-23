@@ -5,6 +5,7 @@
     grid-area: header;
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid var(--borderColor);
 
     &__right {
         display: flex;
@@ -12,7 +13,7 @@
         &__logo {
             height: 100%;
             img {
-                height: 100px;
+                height: 160px;
             }
         }
     }

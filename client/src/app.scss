@@ -1,14 +1,18 @@
 @import "./features/register/register.scss";
 @import "./features/login/login.scss";
 @import"./components/header/header.scss";
+@import "./components/navbar/navbar.scss";
+@import "./features/homePage/homePage.scss";
 
 :root {
     --backgroundColor: #F7F7F5;
     --divBackgroundColor: #BCECE5;
+    --divBackgroundColorOnHover: #a0d8cf;
     --borderRadius: 12px 12px 12px 12px;
     --borderColor: #767670;
     --button-main-color: #9877A9;
     --button-main-border-color: #611F38;
+    --fontColorOnMain: #00201D;
 }
 
 .button_main {
@@ -54,9 +58,10 @@ body {
       "navBar main main main bottom_section bottom_section"
       "navBar main main main bottom_section bottom_section";
   }
-  
-  
-  .navBar { grid-area: navBar; }
+
+  .header_grid { grid-area: header;}
+
+  .navBar {grid-area: navBar;}
   
   .main { grid-area: main; }
   

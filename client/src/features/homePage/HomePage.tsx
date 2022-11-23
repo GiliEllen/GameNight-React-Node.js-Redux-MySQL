@@ -17,7 +17,7 @@ function HomePage() {
 
 
   return (
-    <div>
+    <div className="page home">
       <Header />
       <NavBar />
       <Outlet />

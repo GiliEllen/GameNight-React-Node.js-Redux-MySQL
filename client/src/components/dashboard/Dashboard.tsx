@@ -6,7 +6,7 @@ import { NextGame } from './../nextGame/NextGame';
 
 function Dashboard() {
   return (
-    <div>
+    <div className='page'>
         <Header/>
         <NavBar/>
         <NextGame/>
