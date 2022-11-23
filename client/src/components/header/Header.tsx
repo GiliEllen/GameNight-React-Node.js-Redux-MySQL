@@ -13,8 +13,7 @@ function Header() {
             <img src={logo} alt="" />
           </div>
           <div className="header__left__user_container">
-            <h3>hello {loggedInUser?.first_name}</h3>
-            <h3>Ready to play?</h3>
+            <h3>Hello {loggedInUser?.first_name}! Ready to play?</h3>
           </div>
         </div>
         <div className="header__left">
