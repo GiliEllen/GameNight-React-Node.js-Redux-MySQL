@@ -21,7 +21,7 @@ export const Login = () => {
         console.log("no user found");
       } else if (userArray.length > 0) {
         console.log("user found!");
-        navigate("/home");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -29,19 +29,26 @@ export const Login = () => {
   };
 
   return (
-    <div className="session">
-      <h1>Welcome Back to Game Night!</h1>
-        <h3>Ready to play?</h3>
-      <div className="session__form_container_login">
+    <div className="session_login">
+      <div className="session_login__form_container_login">
         <form onSubmit={handleLogin}>
+          <div>
+            <h1>Welcome Back to Game Night!</h1>
+            <h3>Ready to play?</h3>
+          </div>
+
           <input type="email" name="email" placeholder="Enter Email Here" />
           <input
             type="password"
             name="password"
             placeholder="Enter Password Here"
           />
-          <button className="button_main" type="submit">LOG IN</button>
-          <p>not a member? <Link to={"/"}> Click Here To Register! </Link></p>
+          <button className="button_main" type="submit">
+            LOG IN
+          </button>
+          <p>
+            not a member? <Link to={"/"}> Click Here To Register! </Link>
+          </p>
         </form>
       </div>
     </div>

@@ -8,7 +8,7 @@ export const NextGame = () => {
   const userId = loggedInUser?.user_id;
   const [events, setEvents] = useState([]);
   const [nextEvent, setNextEvent] = useState<Date>();
-  const [nextEventData, SetNextEventData] = useState({id: "" , title: "", start: ""});
+  const [nextEventData, SetNextEventData] = useState({id: "" , title: "", start: "", description: ""});
 
   useEffect(() => {
     handlegGetUserNextEvent();
@@ -52,5 +52,5 @@ export const NextGame = () => {
       console.error(error);
     }
   };
-  return <div>your next game is {nextEventData.title} that is on {`${nextEvent}`}</div>;
+  return <div>Next Event: {nextEventData.description} on {`${nextEvent}`}</div>;
 };

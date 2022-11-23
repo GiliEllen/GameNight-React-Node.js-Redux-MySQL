@@ -1,42 +1,60 @@
-
 .session {
     width: 100vw;
     height: 100vh;
-    background-color:var(--backgroundColor);
+    background-color: var(--backgroundColor);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-image: url(../../images/background.png);
-    background-position: right bottom;
+    background-image: url(../../images/2002.i109.024.people-playing-board-games-isometric-set-Converted.png);
+    background-position: right;
     background-repeat: no-repeat;
     background-size: 50rem;
-    
+
     &__form_container_register {
-        padding: 12px;
-        width: 50rem;
-        height: 50vh;
+        width: 40%;
+        height: 100vh;
         background-color: var(--divBackgroundColor);
         border-radius: var(--borderRadius);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
 
         form {
-            height: 100%;
+            font-size: 1.5rem;
+
+            h1 {
+                font-family: 'Fredoka One', cursive;
+            }
+
+            height: 70%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            align-content: center;
             justify-content: space-around;
+
             input {
+                font-family: 'Rubik', sans-serif;
+                width: 70%;
+                font-size: 20px;
+                border-radius: 6px;
+                line-height: 1.5;
+                padding: 5px 10px;
+                transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+                border: 2px solid #dee1e2;
+                color: rgb(14, 14, 16);
+                background: var(--backgroundColor);
+                display: block;
                 height: 3rem;
-                width: 50%;
-                border: none;
-                color: var(--backgroundColor);
-                font-size: 75%;
-                line-height: 15px;
-                cursor: text;
-                border-radius: var(--borderRadius);
-                padding-left: 15px;
-                font-size: 1rem;
+
+                &:hover {
+                    border-color: #ccc;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: #9147ff;
+                    background: #fff;
+                }
             }
         }
     }

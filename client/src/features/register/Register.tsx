@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const Register = () => {
   const [input, setInput] = useState({
@@ -90,12 +90,14 @@ export const Register = () => {
 
   return (
     <div className="session">
-      <div className="session__header">
-        <h1>Welcome to Game Night!</h1>
-        <h3>Ready to play?</h3>
-      </div>
       <div className="session__form_container_register">
+        
         <form className="form_container__form" onSubmit={handleRegister}>
+        <div className="session__form_container_register__header">
+          <h1>Welcome to Game Night!</h1>
+          <h3>Ready to play?</h3>
+        </div>
+          
           <input type="text" name="first_name" placeholder="Enter Your name" />
           <input
             type="text"
@@ -121,8 +123,12 @@ export const Register = () => {
             placeholder="Repeat Your Password"
           />
           {error.rePassword && <span className="err">{error.rePassword}</span>}
-          <button className="button_main" type="submit">SIGN UP</button>
-          <p>already a memmber? <Link to="/login">click here to log in!</Link> </p>
+          <button className="button_main" type="submit">
+            SIGN UP
+          </button>
+          <p>
+            already a member? <Link to="/login">click here to log in!</Link>{" "}
+          </p>
         </form>
       </div>
     </div>

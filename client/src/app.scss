@@ -9,10 +9,14 @@
     --divBackgroundColor: #BCECE5;
     --divBackgroundColorOnHover: #a0d8cf;
     --borderRadius: 12px 12px 12px 12px;
-    --borderColor: #767670;
+    --borderColor: #71CCBD;
     --button-main-color: #9877A9;
     --button-main-border-color: #611F38;
     --fontColorOnMain: #00201D;
+}
+
+body{
+    font-family: 'Rubik', sans-serif;
 }
 
 .button_main {
@@ -38,7 +42,7 @@ body {
     overflow: hidden;
 }
 .page {  
-    overflow: hidden;
+    // overflow: hidden;
     display: grid;
     height: 100vh;
     width: 100vw;

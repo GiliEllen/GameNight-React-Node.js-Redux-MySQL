@@ -25,7 +25,6 @@ function App() {
           <Route path="*" element={<Page404 />} />
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/my-game-nights" element={<MyGameNights />} />
           <Route path="/my-games" element={<MyGames />} />

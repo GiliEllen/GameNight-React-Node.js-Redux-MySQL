@@ -78,13 +78,15 @@ export async function getUserEvents(
             id: result.game_events_id,
             title: result.game_name,
             start: result.date,
+            description: `You will play ${result.game_name} at ${result.location_city}, ${result.location_address}, hosted by You.`
           });
         });
         results[1].forEach((result) => {
           userEvents.push({
             id: result.game_events_id,
             title: result.game_name,
-            start:result.date
+            start:result.date,
+            description: `You will play ${result.game_name} at ${result.location_city}, ${result.location_address}`
           })
         });
         res.send({ userEvents });
