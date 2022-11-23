@@ -35,19 +35,19 @@ function MyGames() {
     }
   }
   return (
-    <div>
+    <div className="page">
       <Header />
       <NavBar />
-      <div>
-        <h3>my game list</h3>
-        <div>
+      <div className="main">
+        <h1>my game list</h1>
+        <div className="user_games">
           {games.map((game, idx) => {
             return <Game key={idx} name={game.game_name} img={game.game_img} addable={false}/>;
           })}
         </div>
       </div>
-      <div>my top games</div>
-      <div>
+      <div className="top_section">my top games</div>
+      <div className="bottom_section">
         <h1>Add New Game</h1>
         <AddNewGame userGames={games}/>
       </div>

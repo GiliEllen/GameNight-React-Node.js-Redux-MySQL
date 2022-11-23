@@ -29,7 +29,7 @@ const Game:FC<GameProps> = ({name, img, addable}) => {
     }
   }
   return (
-    <div>
+    <div className='game_card'>
         <img src={img} alt="" />
         <h2>{name}</h2>
         {addable && <h3>Would you like to add this game to your owned game list?</h3>}

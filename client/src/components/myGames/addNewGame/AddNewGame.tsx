@@ -1,35 +1,39 @@
 import { ReactEventHandler, useEffect, useState, FC } from "react";
 import axios from "axios";
 import Game from "../game/Game";
-import { GameModel } from './../MyGames';
-import { useAppDispatch } from './../../../app/hooks';
-import { login } from './../../../features/loggedInUser/userAPI';
+import { GameModel } from "./../MyGames";
+import { useAppDispatch } from "./../../../app/hooks";
+import { login } from "./../../../features/loggedInUser/userAPI";
 
 interface AddGamesProps {
-  userGames : Array<GameModel>;
+  userGames: Array<GameModel>;
 }
 
-const AddNewGame:FC<AddGamesProps> = ({userGames}) => {
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(login());
-    }, [])
+const AddNewGame: FC<AddGamesProps> = ({ userGames }) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(login());
+  }, []);
 
   const [gameExist, setGameExist] = useState(false);
   const [possibleGame, setPossibleGame] = useState<GameModel[]>([]);
-  const [allowAdd, setAllowAdd] = useState<Boolean>(false)
+  const [allowAdd, setAllowAdd] = useState<Boolean>(false);
 
-  async function handleAddGame(ev:any) {
+  async function handleAddGame(ev: any) {
     try {
-        ev.preventDefault();
-        const gameName = ev.target.gameName.value;
-        const gameImg = ev.target.gameImg.value;
-        if(!gameName || !gameImg) throw new Error("no data from client on handleAddGame");
+      ev.preventDefault();
+      const gameName = ev.target.gameName.value;
+      const gameImg = ev.target.gameImg.value;
+      if (!gameName || !gameImg)
+        throw new Error("no data from client on handleAddGame");
 
-        const {data} = await axios.post("/api/games/Add-New-Game", {gameName, gameImg});
-        console.log(data)
+      const { data } = await axios.post("/api/games/Add-New-Game", {
+        gameName,
+        gameImg,
+      });
+      console.log(data);
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
   }
 
@@ -37,7 +41,7 @@ const AddNewGame:FC<AddGamesProps> = ({userGames}) => {
     try {
       ev.preventDefault();
       const gameName = ev.target.value;
-      if(!gameName) {
+      if (!gameName) {
         setGameExist(false);
         setPossibleGame([]);
         return;
@@ -51,19 +55,19 @@ const AddNewGame:FC<AddGamesProps> = ({userGames}) => {
         console.log("no game with this name is found");
         setGameExist(false);
         setPossibleGame([]);
-        setAllowAdd(true)
+        setAllowAdd(true);
       } else if (results.length > 0) {
         console.log("game avilable");
         setGameExist(true);
         setPossibleGame(results);
-        setAllowAdd(false)
+        setAllowAdd(false);
       }
     } catch (error) {
       console.error(error);
     }
   }
   return (
-    <div>
+    <div className="add_new_game">
       <form onSubmit={handleAddGame}>
         <input
           onChange={handleLookForGameName}
@@ -77,13 +81,26 @@ const AddNewGame:FC<AddGamesProps> = ({userGames}) => {
           placeholder="Enter Game Image Link Here"
         />
         {allowAdd && <button type="submit">ADD GAME</button>}
-        {!allowAdd && <button disabled type="submit">ADD GAME</button>}
+        {!allowAdd && (
+          <button disabled type="submit">
+            ADD GAME
+          </button>
+        )}
       </form>
-      {gameExist && <div>Did you mean...</div>}
-      {gameExist &&
-        possibleGame.map((game, idx) => {
-          return <Game key={idx} name={game.game_name} img={game.game_img} addable={true}/>;
-        })}
+      <div className="result_container">
+        {gameExist && <div>Did you mean...</div>}
+        {gameExist &&
+          possibleGame.map((game, idx) => {
+            return (
+              <Game
+                key={idx}
+                name={game.game_name}
+                img={game.game_img}
+                addable={true}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };
