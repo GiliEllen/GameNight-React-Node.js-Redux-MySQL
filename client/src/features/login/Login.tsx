@@ -21,7 +21,7 @@ export const Login = () => {
         console.log("no user found");
       } else if (userArray.length > 0) {
         console.log("user found!");
-        navigate("/dashboard");
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);

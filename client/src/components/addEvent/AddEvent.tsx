@@ -6,18 +6,21 @@ import { GameModel } from "./../myGames/MyGames";
 import axios from "axios";
 import { login } from './../../features/loggedInUser/userAPI';
 import { useAppDispatch } from './../../app/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const AddEvent = () => {
+  useEffect(() => {
+    dispatch(login());
+    getUserGames();
+  }, []);
   const loggedInUser = useAppSelector(userSelector);
   const [games, setGames] = useState<GameModel[]>([]);
   const [date, setDate] = useState(new Date());
   const dispatch = useAppDispatch();
   const [addedevent, setAddedEvent] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(login());
-    getUserGames();
-  }, []);
+
 
   async function getUserGames() {
     try {
@@ -59,13 +62,14 @@ export const AddEvent = () => {
       const {results} = data;
 
       if(results.affectedRows > 0) setAddedEvent(true)
+      navigate("/my-game-nights")
     } catch (error) {
       console.error(error);
     }
   }
 
   return (
-    <div>
+    <div className="add_event">
       <form onSubmit={handleAddEvent}>
         <Calendar setDate={setDate} date={date} />
         <input type="time" name="eventTime" />
@@ -81,16 +85,16 @@ export const AddEvent = () => {
         />
         <input type="number" name="spots" placeholder="Enter Avilable Spots" />
         <label htmlFor="gamesList">Choose from your games:</label>
-        <select name="gamesList">
+        <select className="select" name="gamesList">
           {games.map((game, idx) => {
             return (
-              <option key={idx} value={game.game_id}>
+              <option className="options" key={idx} value={game.game_id}>
                 {game.game_name}
               </option>
             );
           })}
         </select>
-        <button type="submit">Add Event</button>
+        <button className="button_main" type="submit">Add Event</button>
         {addedevent && <p className="good">Event Added Successfully!</p>}
       </form>
     </div>

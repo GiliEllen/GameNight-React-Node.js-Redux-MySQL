@@ -3,6 +3,9 @@
 @import"./components/header/header.scss";
 @import "./components/navbar/navbar.scss";
 @import "./features/homePage/homePage.scss";
+@import "./components/nextGame/nextGame.scss";
+@import "./components/dashboard/dashboard.scss";
+@import "./components/myGameNight/myGameNight.scss";
 
 :root {
     --backgroundColor: #F7F7F5;
@@ -42,7 +45,7 @@ body {
     overflow: hidden;
 }
 .page {  
-    // overflow: hidden;
+    overflow: hidden;
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -54,9 +57,9 @@ body {
       "header header header header header header "
       "navBar main main main top_section top_section"
       "navBar main main main top_section top_section"
-      "navBar main main main top_section top_section"
-      "navBar main main main top_section top_section"
-      "navBar main main main top_section top_section"
+      "navBar main main main bottom_section bottom_section"
+      "navBar main main main bottom_section bottom_section"
+      "navBar main main main bottom_section bottom_section"
       "navBar main main main bottom_section bottom_section"
       "navBar main main main bottom_section bottom_section"
       "navBar main main main bottom_section bottom_section"

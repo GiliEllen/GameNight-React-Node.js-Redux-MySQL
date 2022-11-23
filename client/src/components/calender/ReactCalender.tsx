@@ -15,9 +15,8 @@ const ReactCalender:FC<ReactCalendarProps> = ({setDate, date}) => {
   };
 
   return (
-    <div>
+    <div className="calender">
       <Calendar calendarType="Hebrew" onChange={onChange} value={date} />
-      <p>{`${date}`}</p>
     </div>
   );
 }

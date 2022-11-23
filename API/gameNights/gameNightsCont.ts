@@ -32,7 +32,7 @@ export async function addEvent(req: express.Request, res: express.Response) {
     }
     const fullDate = `${eventDateYear}-${fullMonth}-${eventDateDay} ${eventTime}:00`;
 
-    const query = `INSERT INTO gamenight.game_events (date, spots_available, game_id, user_host_id, location_city, location_address) VALUES ('${fullDate}', ${eventSpots}, ${SelectedGameId}, ${userId}, '${eventLocationCity}', '${eventLocationAddress}');`;
+    const query = `INSERT INTO gamenight.game_events (date, spots_available, game_id, user_host_id, location_city, location_address, can_user_join) VALUES ('${fullDate}', ${eventSpots}, ${SelectedGameId}, ${userId}, '${eventLocationCity}', '${eventLocationAddress}', '1');`;
 
     db.query(query, (err, results, fields) => {
       try {
@@ -53,7 +53,7 @@ export async function getUserEvents(
   res: express.Response
 ) {
   try {
-    const { userId } = req.body;
+    const { userId } = req.cookies;
     if (!userId) throw new Error("no userId from client on getUserEvents");
 
     const query = 

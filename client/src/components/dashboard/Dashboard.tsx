@@ -5,10 +5,10 @@ import ReactCalender from "./../calender/ReactCalender";
 import { NextGame } from "./../nextGame/NextGame";
 import { useAppDispatch } from "./../../app/hooks";
 import { login } from "./../../features/loggedInUser/userAPI";
+import { FullCalenderReact } from "../calender/fullCalender/FullCalender";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(login());
   }, []);
@@ -17,13 +17,16 @@ function Dashboard() {
     <div className="page">
       <Header />
       <NavBar />
-      <div className="main">
-        <NextGame />
+
+      <div className="main main_calendar">
+        <FullCalenderReact />
       </div>
       <div className="top_section">
-        <div>calnder for game nights</div>
+        <NextGame />
       </div>
-      <div className="bottom_section">top games</div>
+      <div className="dashboard_img bottom_section">
+        top games?
+      </div>
     </div>
   );
 }
