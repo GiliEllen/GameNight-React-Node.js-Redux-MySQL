@@ -42,6 +42,30 @@ export const GameNightRow: FC<GameNightRowProps> = ({
   } else {
     minutesFinal = minutes;
   }
+  useEffect(() => {
+    isEventPass();
+  },[])
+
+  function isEventPass() {
+    try {
+      console.log("check event")
+      const today = new Date();
+      console.log("day", day)
+      console.log("month", month)
+      console.log(today.getDate())
+      console.log(today.getMonth())
+      if(day < today.getDate() && month < today.getMonth() +1) {
+        setDisabled(true)
+        console.log("event pass")
+      } else if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear() && hour < today.getHours()) {
+        setDisabled(true)
+        console.log("event pass")
+
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   async function handleAddUserToGameEvent() {
     try {
@@ -67,8 +91,6 @@ export const GameNightRow: FC<GameNightRowProps> = ({
         { gameEventId, userId }
       );
       const { userJoin } = data;
-      console.log(gameEventId)
-      console.log(userJoin)
       setGameJoinable(userJoin);
       if(!userJoin) {
         setDisabled(true)
@@ -94,7 +116,7 @@ export const GameNightRow: FC<GameNightRowProps> = ({
   return (
     <tr>
       <td>{GameName}</td>
-      <td>{`${day}.${month}.${year} at ${hour}:${minutesFinal}`}</td>
+      <td>{`${day}.${month +1}.${year} at ${hour}:${minutesFinal}`}</td>
       <td>{playingIn}</td>
       <td>{address}</td>
       <td>

@@ -25,7 +25,6 @@ function Dashboard() {
         <NextGame />
       </div>
       <div className="dashboard_img bottom_section">
-        top games?
       </div>
     </div>
   );
