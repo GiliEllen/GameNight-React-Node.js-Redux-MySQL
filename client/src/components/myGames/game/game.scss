@@ -1,26 +1,78 @@
-
 .user_games {
     height: 70vh;
     overflow-y: scroll;
 
 }
 
-.game_card {
-    height: 10rem;
-    background-color: var(--backgroundColor);
+.game_list {
     display: flex;
-    margin: 12px;
-    border-radius: 12px;
-    text-align: center;
-    align-items: center;
-    padding-left: 12px ;
+    flex-direction: column;
+    overflow-y: scroll;
+    justify-content: center;
 
-    h2 {
-        padding-left: 12px;
+    .game_card {
+        display: flex;
+        justify-content: space-between;
+
+        &__container {
+            height: 10rem;
+            background-color: var(--backgroundColor);
+            display: flex;
+            margin: 12px;
+            border-radius: 12px;
+            text-align: center;
+            align-items: center;
+            align-content: center;
+            padding-left: 12px;
+            width: 70vw;
+
+            h2 {
+                padding-left: 12px;
+            }
+
+            h3 {
+                padding: 12px;
+            }
+
+            img {
+                height: 80%;
+                border-radius: 12px;
+            }
+
+            .button_add {
+                margin-right: 12px;
+                align-self: flex-end;
+                align-self: center;
+            }
+        }
+
     }
-    img {
-        height: 80%;
+}
+
+.game_card {
+    display: flex;
+    justify-content: space-between;
+
+
+    &__container {
+        height: 10rem;
+        background-color: var(--backgroundColor);
+        display: flex;
+        margin: 12px;
         border-radius: 12px;
+        text-align: center;
+        align-items: center;
+        padding-left: 12px;   
+        width: 50vw;
+
+        h2 {
+            padding-left: 12px;
+        }
+
+        img {
+            height: 80%;
+            border-radius: 12px;
+        }
     }
 }
 
@@ -52,7 +104,7 @@
             background: #FFFFFF;
             display: block;
             height: 2rem;
-            
+
 
             &:hover {
                 border-color: #ccc;
