@@ -5,14 +5,19 @@
 }
 
 .game_list {
-    display: flex;
     flex-direction: column;
     overflow-y: scroll;
     justify-content: center;
+    margin: 0 auto 0 auto;
 
     .game_card {
         display: flex;
         justify-content: space-between;
+        border-radius: 12px;
+        width: 60vw;
+        background-color: var(--backgroundColor);
+        margin-top: 20px;
+
 
         &__container {
             height: 10rem;
@@ -52,6 +57,7 @@
 .game_card {
     display: flex;
     justify-content: space-between;
+    
 
 
     &__container {
