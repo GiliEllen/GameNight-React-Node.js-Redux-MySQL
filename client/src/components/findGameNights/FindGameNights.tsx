@@ -43,42 +43,46 @@ export const FindGameNights = () => {
   }
 
   return (
-    <div>
+    <div className="page">
       <Header />
       <NavBar />
-      <table>
-        <tr>
-          <th>Game Name</th>
-          <th>playing on:</th>
-          <th>playing in:</th>
-          <th>Address</th>
-          <th>Hosted By</th>
-          <th>spots</th>
-          <th>Can you join?</th>
-        </tr>
-        {allEvents.map((event, idx) => {
-          let userHost;
-          if (loggedInUser?.user_id === event.user_host_id) {
-            userHost = true;
-          } else {
-            userHost = false;
-          }
-          return (
-            <GameNightRow
-              key={idx}
-              GameName={event.game_name}
-              playingOn={event.date}
-              playingIn={event.location_city}
-              address={event.location_address}
-              hostedByname={event.first_name}
-              hostedBylastName={event.last_name}
-              spots={event.spots_available}
-              userHost={userHost}
-              gameEventId={event.game_events_id}
-            />
-          );
-        })}
-      </table>
+      <div className="full_page">
+        <div className="container_table">
+          <table cellSpacing={0} cellPadding={0} className="table_events">
+            <tr>
+              <th>Game Name</th>
+              <th>playing on:</th>
+              <th>playing in:</th>
+              <th>Address</th>
+              <th>Hosted By</th>
+              <th>spots</th>
+              <th>Can you join?</th>
+            </tr>
+            {allEvents.map((event, idx) => {
+              let userHost;
+              if (loggedInUser?.user_id === event.user_host_id) {
+                userHost = true;
+              } else {
+                userHost = false;
+              }
+              return (
+                <GameNightRow
+                  key={idx}
+                  GameName={event.game_name}
+                  playingOn={event.date}
+                  playingIn={event.location_city}
+                  address={event.location_address}
+                  hostedByname={event.first_name}
+                  hostedBylastName={event.last_name}
+                  spots={event.spots_available}
+                  userHost={userHost}
+                  gameEventId={event.game_events_id}
+                />
+              );
+            })}
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

@@ -166,9 +166,6 @@ export async function checkIfUserCanJoinGame(
       db.query(query, [1,2,3], (err, results, fields) => {
         try {
           if (err) throw err;
-          console.log(results[0]); 
-          console.log(results[1]);
-          console.log(results[2])
           
           if(results[0][0].NumberOfAtendees === results[1][0].spots_available) {
             userJoin = false;
