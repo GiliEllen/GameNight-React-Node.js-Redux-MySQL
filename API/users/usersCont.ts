@@ -31,7 +31,7 @@ export async function register(req: express.Request, res: express.Response) {
         if (error) throw error;
 
         const secret = process.env.JWT_SECRET;
-        if (!secret) throw new Error("Coudln't load secret from .env");   
+        if (!secret) throw new Error("Coudln't load secret from .env");
         const cookie = { userID: results.insertId };
         const JWTCookie = jwt.encode(cookie, secret);
 
@@ -87,13 +87,13 @@ export const getUserByCookie = async (req, res) => {
     if (userId === undefined) throw new Error("no user");
 
     const decodedUserId = jwt.decode(userId, secret);
-            const { userID } = decodedUserId;
+    const { userID } = decodedUserId;
 
-            const sql = `SELECT * FROM users WHERE user_id = '${userID}'`;
-            db.query(sql, (error, results) => {
-                if (error) throw error;
-                res.send({ user: results[0] });
-            });
+    const sql = `SELECT * FROM users WHERE user_id = '${userID}'`;
+    db.query(sql, (error, results) => {
+      if (error) throw error;
+      res.send({ user: results[0] });
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: error.message });
