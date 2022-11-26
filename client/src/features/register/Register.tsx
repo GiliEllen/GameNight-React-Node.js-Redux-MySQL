@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     password: "",
     rePassword: "",
@@ -72,17 +73,7 @@ export const Register = () => {
         rePassword,
       });
       console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const checkConnection = async () => {
-    try {
-      console.log("trying to check");
-      const { data } = await axios.get("/check");
-      if (!data) throw new Error("no data from check");
-      console.log(data);
+      
     } catch (error) {
       console.log(error);
     }

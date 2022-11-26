@@ -5,20 +5,20 @@ const cookieParser = require('cookie-parser')
 
 export async function register(req: express.Request, res: express.Response) {
     try {
-        console.log("controller")
         const { firstName, lastName, email, password, rePassword } = req.body;
         if(!firstName || !lastName || !email || !password || !rePassword) throw new Error("missing data from client on register");
 
-        const query = `INSERT INTO users (email, first_name, last_name, password) VALUES ('${email}', '${firstName}', '${lastName}', '${password}')`
+        const query = `INSERT INTO gamenight.users (email, first_name, last_name, password) VALUES ('${email}', '${firstName}', '${lastName}', '${password}')`
         db.query(query, (err, results, fields) => {
             try {
+              console.log(err)
                 if (err) throw err
                 const cookie = results[0].user_id;
                 res.cookie("userId", cookie)
                 res.send({ ok: true, message: results });
               } catch (error) {
                 console.log(err);
-                res.status(500).send({ ok: false });
+                res.status(500).send({ ok: false, error: err });
               }
         })
 
