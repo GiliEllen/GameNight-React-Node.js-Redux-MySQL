@@ -50,10 +50,6 @@ export const GameNightRow: FC<GameNightRowProps> = ({
     try {
       console.log("check event")
       const today = new Date();
-      console.log("day", day)
-      console.log("month", month)
-      console.log(today.getDate())
-      console.log(today.getMonth())
       if(day < today.getDate() && month < today.getMonth() +1) {
         setDisabled(true)
         console.log("event pass")
