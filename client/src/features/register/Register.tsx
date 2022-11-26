@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [registerError, setRegisterError] = useState(false);
   const [input, setInput] = useState({
     password: "",
     rePassword: "",
@@ -73,6 +74,9 @@ export const Register = () => {
         rePassword,
       });
       console.log(data);
+      const {message} = data;
+
+      message.affectedRows ? navigate("/home") : setRegisterError(true)
       
     } catch (error) {
       console.log(error);
@@ -120,6 +124,7 @@ export const Register = () => {
           <p>
             already a member? <Link to="/login">click here to log in!</Link>{" "}
           </p>
+          {registerError && <p>Could not register: please try again</p>}
         </form>
       </div>
     </div>
