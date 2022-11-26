@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../../DB/database";
+import jwt from "jwt-simple";
 
 const cookieParser = require("cookie-parser");
 
@@ -53,13 +54,19 @@ export async function getUserEvents(
   res: express.Response
 ) {
   try {
-    const { userId } = req.cookies;
-    if (!userId) throw new Error("no userId from client on getUserEvents");
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("Couldn't load secret from .env");
 
+    const { userId } = req.cookies;
+    if (!userId) throw new Error("no userId found");
+    if (userId === undefined) throw new Error("no user");
+
+    const decodedUserId = jwt.decode(userId, secret);
+            const { userID } = decodedUserId;
     const query = 
     `SELECT * FROM gamenight.game_events as ge
     JOIN gamenight.games as g
-    ON ge.game_id = g.game_id AND ge.user_host_id = ${userId}
+    ON ge.game_id = g.game_id AND ge.user_host_id = ${userID}
     ; 
     SELECT * from game_events 
     JOIN games 

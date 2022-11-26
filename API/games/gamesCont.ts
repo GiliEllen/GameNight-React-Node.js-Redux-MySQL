@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../../DB/database";
+import jwt from "jwt-simple";
 
 const cookieParser = require("cookie-parser");
 
@@ -10,13 +11,21 @@ export async function findGameByUser(
   try {
     // const { loggedInUser } = req.body;
 
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("Couldn't load secret from .env");
+
     const { userId } = req.cookies;
+    if (!userId) throw new Error("no userId found");
+    if (userId === undefined) throw new Error("no user");
+
+    const decodedUserId = jwt.decode(userId, secret);
+            const { userID } = decodedUserId;
 
     const query = `SELECT g.game_name, g.game_img, g.game_id 
     FROM games as g 
     JOIN users_games as ug ON g.game_id = ug.game_id 
     JOIN users as u ON u.user_id = ug.user_owner_id
-    WHERE u.user_id = "${userId}";`;
+    WHERE u.user_id = "${userID}";`;
 
     db.query(query, (err, results, fields) => {
       try {

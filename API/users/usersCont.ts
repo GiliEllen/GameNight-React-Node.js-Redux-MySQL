@@ -32,7 +32,7 @@ export async function register(req: express.Request, res: express.Response) {
 
         const secret = process.env.JWT_SECRET;
         if (!secret) throw new Error("Coudln't load secret from .env");   
-        const cookie = { userId: results.insertId };
+        const cookie = { userID: results.insertId };
         const JWTCookie = jwt.encode(cookie, secret);
 
         res.cookie("userId", JWTCookie);
@@ -59,7 +59,7 @@ export async function login(req: express.Request, res: express.Response) {
         const isMatch = await bcrypt.compare(password, results[0].password);
         if (!isMatch) throw new Error("Email or password incorrect");
 
-        const cookie = { userId: results[0].user_id };
+        const cookie = { userID: results[0].user_id };
         const secret = process.env.JWT_SECRET;
         if (!secret) throw new Error("Couldn't load secret from .env");
 
@@ -94,17 +94,6 @@ export const getUserByCookie = async (req, res) => {
                 if (error) throw error;
                 res.send({ user: results[0] });
             });
-
-    // const query = `SELECT * from users WHERE user_id='${userId}' LIMIT 1`;
-    // db.query(query, (err, results, fields) => {
-    //   try {
-    //     if (err) throw err;
-    //     res.send({ user: results[0] });
-    //   } catch (error) {
-    //     console.log(err);
-    //     res.status(500).send({ ok: false, error: err });
-    //   }
-    // });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: error.message });
