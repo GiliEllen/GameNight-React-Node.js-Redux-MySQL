@@ -62,7 +62,7 @@ export async function getUserEvents(
     if (userId === undefined) throw new Error("no user");
 
     const decodedUserId = jwt.decode(userId, secret);
-            const { userID } = decodedUserId;
+    const { userID } = decodedUserId;
     const query = 
     `SELECT * FROM gamenight.game_events as ge
     JOIN gamenight.games as g
@@ -74,7 +74,7 @@ export async function getUserEvents(
     AND game_events.game_events_id IN (
       SELECT game_event_id
         FROM game_events_spots
-        WHERE user_atendee_id = '${userId}'
+        WHERE user_atendee_id = '${userID}'
     );`;
     const userEvents = [];
     db.query(query, [1,2], (err, results, fields) => {
