@@ -7,7 +7,7 @@ import NavBar from "./../navbar/NavBar";
 import { GameNightRow } from "./gameNightRow/GameNightRow";
 import { useAppDispatch } from "./../../app/hooks";
 import { login } from "./../../features/loggedInUser/userAPI";
-import GameNightCard from './gameNightCard/GameNightCard';
+import GameNightCard from "./gameNightCard/GameNightCard";
 
 interface allEventsModel {
   date: Date;
@@ -49,13 +49,14 @@ export const FindGameNights = () => {
       <NavBar />
       <div className="full_page">
         <div className="container_cards">
-            {allEvents.map((event, idx) => {
-              let userHost;
-              if (loggedInUser?.user_id === event.user_host_id) {
-                userHost = true;
-              } else {
-                userHost = false;
-              }
+          {allEvents.map((event, idx) => {
+            let userHost;
+            if (loggedInUser?.user_id === event.user_host_id) {
+              userHost = true;
+            } else {
+              userHost = false;
+            }
+          
               return (
                 <GameNightCard
                   key={idx}
@@ -71,7 +72,8 @@ export const FindGameNights = () => {
                   game_img={event.game_img}
                 />
               );
-            })}
+            }
+          )}
         </div>
       </div>
     </div>

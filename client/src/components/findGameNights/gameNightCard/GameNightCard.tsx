@@ -39,6 +39,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
   const year = new Date(playingOn).getFullYear();
   const hour = new Date(playingOn).getHours();
   const minutes = new Date(playingOn).getMinutes();
+  const [display, setDisplay] = useState("flex")
   let minutesFinal;
   if (minutes < 10) {
     minutesFinal = `0${minutes}`;
@@ -55,6 +56,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
       const today = new Date();
       if (day < today.getDate() && month < today.getMonth() + 1) {
         setDisabled(true);
+        setDisplay("none")
         console.log("event pass");
       } else if (
         day === today.getDate() &&
@@ -63,6 +65,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
         hour < today.getHours()
       ) {
         setDisabled(true);
+        setDisplay("none")
         console.log("event pass");
       }
     } catch (error) {
@@ -117,7 +120,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
   }, []);
 
   return (
-    <div className="game-night-card">
+    <div style={{display:display}} className="game-night-card">
       <div className="game-night-card__img">
         <img src={game_img} alt="" />
       </div>
