@@ -46,7 +46,6 @@ function MyGames() {
           })}
         </div>
       </div>
-      <div className="top_section">my top games</div>
       <div className="bottom_section">
         <h1>Add New Game</h1>
         <AddNewGame userGames={games}/>

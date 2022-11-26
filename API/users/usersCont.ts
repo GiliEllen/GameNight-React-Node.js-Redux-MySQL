@@ -99,3 +99,14 @@ export const getUserByCookie = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
+
+export async function logout(req:express.Request, res:express.Response) {
+  try {
+    res.clearCookie("userId");
+    res.send({ logout: true });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: error.message });
+  }
+}
