@@ -134,17 +134,22 @@ export async function getAllGames(req: express.Request, res: express.Response) {
     const { userID } = decodedUserId;
     if (!userId || !userID)
       throw new Error("no loggedInUser from client on get all games");
-    const query = `SELECT DISTINCT  g.game_name, g.game_img, g.game_id
-    FROM gamenight.games as g
-    LEFT JOIN gamenight.users_games as ug
-    ON g.game_id = ug.game_id;`;
+    const query = `SELECT *
+    FROM gamenight.games as g;
+    SELECT g.game_name, g.game_img, g.game_id 
+    FROM games as g 
+    JOIN users_games as ug ON g.game_id = ug.game_id 
+    JOIN users as u ON u.user_id = ug.user_owner_id
+    WHERE u.user_id = "${userID}";`;
 
-    db.query(query, (err, results, fields) => {
+    db.query(query, [1,2], (err, results, fields) => {
       try {
         if (err) throw err;
         const gamesArray = [];
-        results.map((result) => {
-          if (result.user_owner_id === userID) {
+        results[0].map((result) => {
+          
+          if (results[1].some(e => e.game_id === result.game_id)) {
+            console.log("try to push none addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
@@ -152,6 +157,7 @@ export async function getAllGames(req: express.Request, res: express.Response) {
               gameAddble: false,
             });}
            else {
+            console.log("try to push addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
