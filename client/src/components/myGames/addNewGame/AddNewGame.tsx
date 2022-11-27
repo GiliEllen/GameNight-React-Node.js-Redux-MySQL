@@ -50,16 +50,16 @@ const AddNewGame: FC<AddGamesProps> = ({ userGames }) => {
         gameName,
       });
       if (!data) throw new Error("no data on /api/games/find-game-by-name");
-      const { results } = data;
-      if (results.length === 0) {
+      const { gamesArray } = data;
+      if (gamesArray.length === 0) {
         console.log("no game with this name is found");
         setGameExist(false);
         setPossibleGame([]);
         setAllowAdd(true);
-      } else if (results.length > 0) {
+      } else if (gamesArray.length > 0) {
         console.log("game avilable");
         setGameExist(true);
-        setPossibleGame(results);
+        setPossibleGame(gamesArray);
         setAllowAdd(false);
       }
     } catch (error) {
@@ -96,7 +96,7 @@ const AddNewGame: FC<AddGamesProps> = ({ userGames }) => {
                 key={idx}
                 name={game.game_name}
                 img={game.game_img}
-                addable={true}
+                addable={game.gameAddble}
               />
             );
           })}

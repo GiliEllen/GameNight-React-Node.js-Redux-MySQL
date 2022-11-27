@@ -24,6 +24,7 @@ const Game: FC<GameProps> = ({ name, img, addable }) => {
       if (results.affectedRows > 0) {
         console.log("game added good!");
         setDisabled(true);
+        window.location.reload();
       } else {
         console.log("did not work");
       }

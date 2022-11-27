@@ -46,16 +46,51 @@ export async function findGameByName(
   res: express.Response
 ) {
   try {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("Couldn't load secret from .env");
+    const { userId } = req.cookies;
+    if (!userId) throw new Error("no userId found");
+    if (userId === undefined) throw new Error("no user");
+
+    const decodedUserId = jwt.decode(userId, secret);
+    const { userID } = decodedUserId;
     const { gameName } = req.body;
     if (!gameName) throw new Error("no game from client on findGameByName");
 
-    const query = `SELECT game_name, game_img FROM gamenight.games
-    WHERE game_name LIKE "%${gameName}%"`;
+    const query = `SELECT game_id, game_name, game_img FROM gamenight.games
+    WHERE game_name LIKE "%${gameName}%"
+    ;
+    SELECT g.game_name, g.game_img, g.game_id 
+    FROM games as g 
+    JOIN users_games as ug ON g.game_id = ug.game_id 
+    JOIN users as u ON u.user_id = ug.user_owner_id
+    WHERE u.user_id = "${userID}";`;
 
-    db.query(query, (err, results, fields) => {
+    db.query(query, [1,2], (err, results, fields) => {
       try {
         if (err) throw err;
-        res.send({ results });
+        const gamesArray = [];
+        results[0].map((result) => {
+          
+          if (results[1].some(e => e.game_id === result.game_id)) {
+            console.log("try to push none addble")
+            gamesArray.push({
+              game_name: result.game_name,
+              game_img: result.game_img,
+              game_id: result.game_id,
+              gameAddble: false,
+            });}
+           else {
+            console.log("try to push addble")
+            gamesArray.push({
+              game_name: result.game_name,
+              game_img: result.game_img,
+              game_id: result.game_id,
+              gameAddble: true,
+            });
+          }
+        });
+        res.send({ gamesArray });
       } catch (error) {
         console.log(err);
         res.status(500).send({ ok: false, error: err });
@@ -149,7 +184,6 @@ export async function getAllGames(req: express.Request, res: express.Response) {
         results[0].map((result) => {
           
           if (results[1].some(e => e.game_id === result.game_id)) {
-            console.log("try to push none addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
@@ -157,7 +191,6 @@ export async function getAllGames(req: express.Request, res: express.Response) {
               gameAddble: false,
             });}
            else {
-            console.log("try to push addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
