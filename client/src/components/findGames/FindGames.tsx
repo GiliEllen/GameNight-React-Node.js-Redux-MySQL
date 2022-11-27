@@ -20,6 +20,7 @@ function FindGames() {
       });
       const { gamesArray } = data;
       setAllgamesArray(gamesArray);
+      console.log(gamesArray)
     } catch (error) {
       console.error(error);
     }

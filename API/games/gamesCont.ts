@@ -92,11 +92,20 @@ export async function addGameToUser(
   res: express.Response
 ) {
   try {
-    const { userId, name } = req.body;
-    if (!userId || !name)
+
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("Couldn't load secret from .env");
+    const { userId } = req.cookies;
+    if (!userId) throw new Error("no userId found");
+    if (userId === undefined) throw new Error("no user");
+
+    const decodedUserId = jwt.decode(userId, secret);
+    const { userID } = decodedUserId;
+    const { name } = req.body;
+    if (!userID || !name)
       throw new Error("no loggedInUser or name from client on addGameToUser");
     const query = `INSERT INTO gamenight.users_games (user_owner_id ,game_id) 
-    SELECT "${userId}", game_id FROM gamenight.games
+    SELECT "${userID}", game_id FROM gamenight.games
     WHERE game_name = '${name}';`;
 
     db.query(query, (err, results, fields) => {
@@ -115,27 +124,34 @@ export async function addGameToUser(
 
 export async function getAllGames(req: express.Request, res: express.Response) {
   try {
-    const { userId } = req.body;
-    if (!userId)
-      throw new Error("no loggedInUser from client on addGameToUser");
-    const query = `SELECT * 
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error("Couldn't load secret from .env");
+    const { userId } = req.cookies;
+    if (!userId) throw new Error("no userId found");
+    if (userId === undefined) throw new Error("no user");
+
+    const decodedUserId = jwt.decode(userId, secret);
+    const { userID } = decodedUserId;
+    if (!userId || !userID)
+      throw new Error("no loggedInUser from client on get all games");
+    const query = `SELECT DISTINCT  g.game_name, g.game_img, g.game_id
     FROM gamenight.games as g
     LEFT JOIN gamenight.users_games as ug
-    ON g.game_id = ug.game_id`;
+    ON g.game_id = ug.game_id;`;
 
     db.query(query, (err, results, fields) => {
       try {
         if (err) throw err;
         const gamesArray = [];
         results.map((result) => {
-          if (result.user_owner_id === userId) {
+          if (result.user_owner_id === userID) {
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
               game_id: result.game_id,
               gameAddble: false,
-            });
-          } else {
+            });}
+           else {
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
@@ -146,11 +162,13 @@ export async function getAllGames(req: express.Request, res: express.Response) {
         });
         res.send({ gamesArray });
       } catch (error) {
-        console.log(err);
-        res.status(500).send({ ok: false, error: err });
+        console.log(err, error);
+        res.status(500).send({ ok: false, error: err, error2: error });
       }
     });
   } catch (error) {
+    console.log( error);
+
     res.status(500).send({ error: error });
   }
 }
