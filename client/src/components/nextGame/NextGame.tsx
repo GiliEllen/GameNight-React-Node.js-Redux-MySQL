@@ -10,7 +10,7 @@ export const NextGame = () => {
   const loggedInUser = useAppSelector(userSelector);
   const userId = loggedInUser?.user_id;
   const [events, setEvents] = useState([]);
-  const [nextEvent, setNextEvent] = useState<Date>();
+  const [nextEvent, setNextEvent] = useState<Date | string>();
   const [nextEventData, SetNextEventData] = useState({
     id: "",
     title: "",
@@ -29,6 +29,9 @@ export const NextGame = () => {
         userId,
       });
       const { userEvents } = data;
+      if (userEvents.length === 0) {
+        setNextEvent("No event Found");
+      }
       const today = new Date();
       for (let i = 0; i < userEvents.length; i++) {
         const eventOfUser = new Date(userEvents[i].start);
@@ -52,7 +55,6 @@ export const NextGame = () => {
           }
         }
       }
-
     } catch (error) {
       console.error(error);
     }

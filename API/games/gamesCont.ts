@@ -9,8 +9,6 @@ export async function findGameByUser(
   res: express.Response
 ) {
   try {
-    // const { loggedInUser } = req.body;
-
     const secret = process.env.JWT_SECRET;
     if (!secret) throw new Error("Couldn't load secret from .env");
 
@@ -73,7 +71,6 @@ export async function findGameByName(
         results[0].map((result) => {
           
           if (results[1].some(e => e.game_id === result.game_id)) {
-            console.log("try to push none addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
@@ -81,7 +78,6 @@ export async function findGameByName(
               gameAddble: false,
             });}
            else {
-            console.log("try to push addble")
             gamesArray.push({
               game_name: result.game_name,
               game_img: result.game_img,
@@ -110,7 +106,6 @@ export async function addGame(req: express.Request, res: express.Response) {
     db.query(query, (err, results, fields) => {
       try {
         if (err) throw err;
-        console.log(results);
         res.send({ results });
       } catch (error) {
         console.log(err);
