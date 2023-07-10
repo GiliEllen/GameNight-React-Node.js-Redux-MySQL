@@ -28,7 +28,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
   spots,
   userHost,
   gameEventId,
-  game_img
+  game_img,
 }) => {
   const loggedInUser = useAppSelector(userSelector);
   const [userClickedButton, setUserClickedButton] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
   const year = new Date(playingOn).getFullYear();
   const hour = new Date(playingOn).getHours();
   const minutes = new Date(playingOn).getMinutes();
-  const [display, setDisplay] = useState("flex")
+  const [display, setDisplay] = useState("flex");
   let minutesFinal;
   if (minutes < 10) {
     minutesFinal = `0${minutes}`;
@@ -52,12 +52,15 @@ const GameNightCard: FC<GameNightCardProps> = ({
 
   function isEventPass() {
     try {
-      console.log("check event");
       const today = new Date();
+      if (year < today.getFullYear()) {
+        setDisabled(true);
+        setDisplay("none");
+      }
+
       if (day < today.getDate() && month < today.getMonth() + 1) {
         setDisabled(true);
-        setDisplay("none")
-        console.log("event pass");
+        setDisplay("none");
       } else if (
         day === today.getDate() &&
         month === today.getMonth() &&
@@ -65,8 +68,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
         hour < today.getHours()
       ) {
         setDisabled(true);
-        setDisplay("none")
-        console.log("event pass");
+        setDisplay("none");
       }
     } catch (error) {
       console.error(error);
@@ -120,7 +122,7 @@ const GameNightCard: FC<GameNightCardProps> = ({
   }, []);
 
   return (
-    <div style={{display:display}} className="game-night-card">
+    <div style={{ display: display }} className="game-night-card">
       <div className="game-night-card__img">
         <img src={game_img} alt="" />
       </div>
@@ -146,12 +148,18 @@ const GameNightCard: FC<GameNightCardProps> = ({
       </div>
 
       {disabled && (
-        <button className="button_join button_join--disabled" disabled onClick={handleAddUserToGameEvent}>
+        <button
+          className="button_join button_join--disabled"
+          disabled
+          onClick={handleAddUserToGameEvent}
+        >
           JOIN GAME
         </button>
       )}
       {!disabled && (
-        <button className="button_join" onClick={handleAddUserToGameEvent}>JOIN GAME</button>
+        <button className="button_join" onClick={handleAddUserToGameEvent}>
+          JOIN GAME
+        </button>
       )}
     </div>
   );
